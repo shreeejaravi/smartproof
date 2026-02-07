@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String      @id @default(uuid())
+  name      String
+  email     String      @unique
+  password  String
+  role      String      @default("invigilator")
+  createdAt DateTime    @default(now())
+  classrooms Classroom[]
+  alerts    Alert[]
+}
+
+model Classroom {
+  id          String         @id @default(uuid())
+  name        String
+  rows        Int
+  cols        Int
+  sectionRows Int? 
+  sectionCols Int?
+  createdAt   DateTime       @default(now())
+  createdBy   String
+  creator     User           @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+  seats       SeatTemplate[]
+  events      SeatEvent[]
+  simulations Simulation[]
+}
+
+model SeatTemplate {
+  id          String    @id @default(uuid())
+  classroomId String
+  row         Int
+  col         Int
+  status      String
+  classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+}
+
+model SeatEvent {
+  id          String    @id @default(uuid())
+  classroomId String
+  seatRow     Int
+  seatCol     Int
+  eventType   String
+  triggerTime Int
+  classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+}
+
+model Alert {
+  id        String   @id @default(uuid())
+  message   String
+  studentId String
+  severity  String
+  type      String
+  seatRow   Int
+  seatCol   Int
+  createdAt DateTime @default(now())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model Simulation {
+  id          String    @id @default(uuid())
+  name        String?
+  status      String    @default("created")
+  createdAt   DateTime  @default(now())
+  classroomId String
+  classroom   Classroom @relation(fields: [classroomId], references: [id], onDelete: Cascade)
+}
