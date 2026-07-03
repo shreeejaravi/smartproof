@@ -4,12 +4,15 @@ import { getAuthUser } from "@/lib/auth"
 
 export const runtime = "nodejs"
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, context: any) {
   const user = await getAuthUser()
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
+  const params = (context as any).params
+  const resolvedParams = typeof params?.then === 'function' ? await params : params
+
   const classroom = await prisma.classroom.findFirst({
-    where: { id: params.id, createdBy: user.id },
+    where: { id: resolvedParams.id, createdBy: user.id },
     include: { seats: true, events: true },
   })
   if (!classroom) return NextResponse.json({ error: "Not found" }, { status: 404 })
@@ -39,10 +42,13 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   })
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, context: any) {
   const user = await getAuthUser()
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  await prisma.classroom.deleteMany({ where: { id: params.id, createdBy: user.id } })
+  const params = (context as any).params
+  const resolvedParams = typeof params?.then === 'function' ? await params : params
+
+  await prisma.classroom.deleteMany({ where: { id: resolvedParams.id, createdBy: user.id } })
   return NextResponse.json({ ok: true })
 }

@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
     "lint": "eslint \"app/**/*.{js,jsx,ts,tsx}\" \"components/**/*.{js,jsx,ts,tsx}\" \"lib/**/*.{js,jsx,ts,tsx}\" \"hooks/**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
-    "@prisma/client": "^6.4.1",
     "@hookform/resolvers": "^3.9.1",
+    "@prisma/client": "^6.4.1",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
     "@radix-ui/react-aspect-ratio": "1.1.1",
@@ -39,12 +39,14 @@
     "@radix-ui/react-toggle-group": "1.1.1",
     "@radix-ui/react-tooltip": "1.1.6",
     "autoprefixer": "^10.4.20",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "1.1.1",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "8.5.1",
     "input-otp": "1.4.1",
+    "jose": "^5.9.6",
     "lucide-react": "^0.544.0",
     "next": "16.1.6",
     "next-themes": "^0.4.6",
@@ -58,20 +60,19 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
-    "zod": "^3.24.1",
-    "bcryptjs": "^2.4.3",
-    "jose": "^5.9.6"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "16.1.6",
-    "@typescript-eslint/parser": "^8.37.0",
     "@tailwindcss/postcss": "^4.1.13",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@typescript-eslint/parser": "^8.37.0",
     "eslint": "^9.39.2",
-    "prisma": "^6.4.1",
     "postcss": "^8.5",
+    "prisma": "^6.4.1",
     "tailwindcss": "^3.4.17",
     "typescript": "5.7.3"
   }

@@ -1,7 +1,8 @@
 "use client"
 
-import React, { createContext, useContext, useState, useCallback, useEffect } from "react"
-import type { ClassroomConfig } from "@/lib/types"
+import * as React from "react"
+import { createContext, useContext, useState, useCallback, useEffect } from "react"
+import type { ClassroomConfig } from "./types"
 
 interface ClassroomStoreType {
   classrooms: ClassroomConfig[]
